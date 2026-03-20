@@ -14,8 +14,8 @@ class Feedback(BaseModel):
 parser2 = PydanticOutputParser(pydantic_object=Feedback)
 
 prompt1 = PromptTemplate(template='Classify the sentiment of the following feedback text into positive or negative \n {feedback} \n {format_instruction} ', input_variables=['feedback'], partial_variables={'format_instruction' : parser2.get_format_instructions()})
-classifier_chain = prompt1 | model | parser
-print(classifier_chain.invoke({'feedback' : 'This is a terrible phone'}))
+classifier_chain = prompt1 | model | parser2
+
 prompt2 = PromptTemplate(template='Write an appropriate response to this positive feedback \n {feedback}', input_variables=['feedback'])
 
 prompt3 = PromptTemplate(template='Write an appropriate response to this negative feedback \n {feedback}', input_variables=['feedback'])
